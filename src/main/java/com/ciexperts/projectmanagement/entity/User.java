@@ -3,8 +3,6 @@ package com.ciexperts.projectmanagement.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,39 +36,10 @@ public class User {
 	
 	@Column(name="role_id", nullable=false,insertable=false, updatable=false)
 	private Integer userRole;
-/*<<<<<<< .mine
-	
-	@ManyToOne
-	@JoinColumn(name="assigned_dev", nullable=false)
-	private Request request;
-	
-	//private UserRole role;
-=======*/
-
-	/*@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id")
-	private UserRole role;*/
 	
 	public User() {
 		super();
 	}
-
-	/*public User(String userId, String password, String firstName, String lastName, String positon, String telephone,
-			String email, String business_unit, Integer userRole, UserRole role) {
-		super();
-		this.userId = userId;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.positon = positon;
-		this.telephone = telephone;
-		this.email = email;
-		this.business_unit = business_unit;
-		this.userRole = userRole;
-		//this.role = role;
-	}*/
-
-
 
 	public User(String userId, String password, String firstName, String lastName, String position, String telephone,
 			String email, String business_unit, Integer userRole) {
@@ -156,24 +125,6 @@ public class User {
 
 	public void setUserRole(Integer userRole) {
 		this.userRole = userRole;
-	}
-
-	
-	/*public Request getRequest() {
-		return request;
-	}
-
-	public void setRequest(Request request) {
-		this.request = request;
-	}*/
-	
-	/*public UserRole getRole() {
-		return role;
-	}
-
-	public void setRole(UserRole role) {
-		this.role = role;
-	}*/
-	
+	}	
 	
 }

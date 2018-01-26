@@ -92,8 +92,13 @@ function loadMainPage(){
 
 function initCommons(){
 	$logo.click(function(){
-		loadMainPage();
-		loadProjectList();
+		if(useraccess != undefined){
+			console.log(useraccess);
+			loadMainPage();
+			loadProjectList();
+		} else {
+			console.log("Inside else -- " +useraccess);
+		}
 	});
 	$home.click(function(){
 		loadMainPage();
@@ -209,6 +214,7 @@ function logout(){
 			$('#avatar').addClass('hide');
 			$('#header-menu').addClass('hide');
 			current_dashboard = '';
+			useraccess = undefined;
 			//}
 		},
 	});

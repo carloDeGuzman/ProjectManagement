@@ -33,6 +33,7 @@ function initRequestList(){
 	     },buttons: [
              {
                  text: 'Create a Request',
+                 className: 'btn-info btn-md',
                  action: function ( e, dt, node, config ) {
                 	 createRequest();
                  }
@@ -47,38 +48,15 @@ function initRequestList(){
 	});
 }
 
-/*function openReqInfo(reqNo, projNo){
-	loadProjInfo(null, projNo, 'openReqInfo');
-	//loadProjPlanPeriod('projinfo-div', projNo);
-	//loadReqInfo('proj-plan-infra', reqNo);
-	loadProjAdtlInfo('projinfo-div', projNo);
-	loadReqInfo('projadtlinfo-div', reqNo);
-	loadReqStatusMain('reqinfo-div', reqNo);
-	$back.removeClass('hide');
-}*/
-
 //NEW -Ronnie
 function openReqInfo(reqNo, projNo){
 	loadProjInfo(null, projNo, 'openReqInfo');
 	loadProjAdtlInfo('projinfo-div', projNo);
 	loadReqInfo('projadtlinfo-div', reqNo);
+	makeFieldsUneditable(); //SHA
+	$("#additionalInformation-div").remove();
 	loadReqStatusMain('reqinfo-div', reqNo);
 	$back.removeClass('hide');
-
-	if(!($("#reqUpdateBtn").is(":visible")) || (useraccess == "bu")){
-		//updateBtnFunction();
-		$("#projadtlinfo-div span").prop('disabled', true);
-		$("#reqinfo-div span").prop('disabled', true);
-		makeFieldsUneditable(); //SHA
-	}
-	
-	$projectlistdt = $projectlist.DataTable();
-	$('#projectlist tbody').on('dblclick', 'tr', function(){
-		var rowData = $projectlistdt.row(this).data();
-		loadUpdateProj(rowData.projNo);
-	});
-	
-	$("#additionalInformation-div").remove();
 }
 
 //ARVIC

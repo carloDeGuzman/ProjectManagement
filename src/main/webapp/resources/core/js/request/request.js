@@ -8,7 +8,8 @@ function createRequest(){
 	loadProjInfo(null, null, 'createReq');
 	/*loadProjPlanPeriod('projinfo-div');
 	loadReqInfo('proj-plan-infra');*/
-	loadReqInfo('projinfo-div'); /* added by SHARIE MANIPON 11.21.2017 */
+	//loadReqInfo('projadtlinfo-div'); /* added by SHARIE MANIPON 11.21.2017 */
+	//setFieldsToEditable();
 	$back.removeClass('hide');
 }
 
@@ -28,7 +29,7 @@ function userPreviliges(){
 		$('#projInfra').remove();
 		$('#projcost-col').removeClass("col-xs-6");
 		$('#projcost-col').addClass("col-xs-12");
-		$("#projSaveBtn, #projCancelBtn, #proj-period div>:input").prop('disabled',false);
+		$("#projSaveBtn, #projCancelBtn, #proj-period :input").prop('disabled',false);
 	}
 	
 	if(useraccess != "pm"){
@@ -66,6 +67,7 @@ function loadReqInfo(afterDiv, reqNo, reqType) {
 								setFieldsToEditable();
 								updateBtnFunction();
 							} else if (useraccess == 'bu' && nvl($('#ravBy').val(), '') == '') {
+								setFieldsToEditable();
 								updateBtnFunction();
 							} else if (useraccess == 'ba' && nvl($('#ravBy').val(), '') == '') {
 								setFieldsToEditable();
@@ -83,10 +85,6 @@ function loadReqInfo(afterDiv, reqNo, reqType) {
 		alert('loadReqInfo - ' + e); 
 	}
 
-	$('#uploadBtn').click(function() {
-		getReqAttachmentList(reqNo);
-		$('#uploadModal').modal('show');
-	});
 }
 
 function getReqAttachmentList(reqNo){
@@ -111,19 +109,31 @@ function getReqAttachmentList(reqNo){
 }
 
 function setFieldsToEditable(){
+	
 	$('#reqSummary').prop('readOnly');
 	$('#reqSummary').attr('readOnly',false);
-	$('#assignedDev').attr('readOnly');
-	$('#assignedDev').attr('readOnly',false);
-	$('#assignedBA').prop('readOnly',false);
-	$('#assignedQA').attr('readOnly',false);
-	/* added by SHARIE MANIPON 11.21.2017 */
-	$('#assignedOPs').attr('readOnly');
-	$('#assignedOPs').attr('readOnly',false);
 	$('#reqDesc').prop('readOnly');
 	$('#reqDesc').attr('readOnly',false);
 	$('#reqRemarks').prop('readOnly');
 	$('#reqRemarks').attr('readOnly',false);
+	
+	if (useraccess == "bu") {
+		$('#assignedDev').attr('readOnly');
+		$('#assignedDev').attr('readOnly',true);
+		$('#assignedBA').prop('readOnly',true);
+		$('#assignedQA').attr('readOnly',true);
+		$('#assignedOPs').attr('readOnly');
+		$('#assignedOPs').attr('readOnly',true);
+	} else {
+		$('#assignedDev').attr('readOnly');
+		$('#assignedDev').attr('readOnly',false);
+		$('#assignedBA').prop('readOnly',false);
+		$('#assignedQA').attr('readOnly',false);
+		/* added by SHARIE MANIPON 11.21.2017 */
+		$('#assignedOPs').attr('readOnly');
+		$('#assignedOPs').attr('readOnly',false);
+	}
+	
 }
 
 function initReqInfo(){
@@ -140,7 +150,6 @@ function initReqInfo(){
 	$('#reqSaveBtn').click(function(){
 		if(nvl($('#reqNo').val(), '') == ''){
 			insertRequest();
-			//updateProj();
 		}else{
 			/* added by SHARIE MANIPON 11.21.2017 */
 			var message = "Hi, "+ $('#reqRequestor').val() + "\n\nYour project has been approved!";

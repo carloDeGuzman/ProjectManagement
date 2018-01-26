@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container" id="reqinfo-div">
-	<div class="panel panel-default">
+	<div class="panel panel-primary">
 		<div class="panel-heading">Create Request</div>
 		<div class="panel-body">
 			<div class= "container-fluid">
@@ -80,9 +80,9 @@
 				</div>
 				<div class="row top10">
 					<div class="col-xs-12" style="text-align: center;">
-						<button id="reqSaveBtn" type="button" class="btn btn-default" disabled="disabled">Submit</button>
-  						<button id="reqUpdateBtn" type="button" class="btn btn-default" disabled="disabled">Update</button>
-  						<button id="reqCancelBtn" type="button" class="btn btn-default">Cancel</button>
+						<button id="reqSaveBtn" type="button" class="btn btn-success" disabled="disabled">Submit</button>
+  						<button id="reqUpdateBtn" type="button" class="btn btn-primary" disabled="disabled">Update</button>
+  						<button id="reqCancelBtn" type="button" class="btn btn-danger">Cancel</button>
 					</div>
 				</div>
 			</div>

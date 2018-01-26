@@ -18,7 +18,6 @@ public class Util {
 				rtn = sFormat.format(date);
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rtn;

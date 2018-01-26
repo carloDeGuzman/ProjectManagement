@@ -59,7 +59,6 @@ public class Request {
 	
 	public Request() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Request(Integer reqNo, Integer projNo, String summary, String dateSubmitted, String ravBy,
 			String assignedDev, String desc, String remarks, String lastUpdate, String requestor, Integer requestType,
