@@ -37,7 +37,6 @@ public class RequestHistory {
 	
 	public RequestHistory() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public RequestHistory(Integer rhNo, Integer reqNo, Integer rsNo,

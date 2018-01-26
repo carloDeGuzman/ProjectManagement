@@ -37,7 +37,6 @@ public class ProjectHistory {
 	
 	public ProjectHistory() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ProjectHistory(Integer phNo, Integer projNo, Integer psNo,

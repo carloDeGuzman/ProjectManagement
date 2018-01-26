@@ -1,5 +1,5 @@
-<table id="projectlist" class="table table-hover common-table table-sm table-striped table-bordered dt-responsive nowrap" style="width: 100%">
-	<thead>
+<table id="projectlist" class="table table-hover common-table table-sm dt-responsive nowrap" style="width: 100%">
+	<thead class="tblHead">
 		<tr>
 			<th>Project No.</th>
 			<th>Project Name</th>

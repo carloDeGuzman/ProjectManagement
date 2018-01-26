@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container" id="projadtlinfo-div">
-	<div class="panel panel-info">
-		<div class="panel-heading">Project Period</div>
+	<div class="panel panel-primary box">
+		<div class="panel-heading box">Project Period</div>
 		<div class="panel-body" id="proj-period">
 			<div class="container-fluid">
 				<div class="row" style="margin-left: 0px;">
@@ -80,8 +80,8 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-6" id="projInfra">
-			<div class="panel panel-default">
-				<div class="panel-heading">Infrastructure</div>
+			<div class="panel panel-primary box">
+				<div class="panel-heading box">Infrastructure</div>
 				<div class="panel-body">
 					<div class= "container-fluid" >
 						<div class="row top10">
@@ -169,8 +169,8 @@
 			</div>
 		</div>
 		<div class="col-xs-6" id="projcost-col">
-			<div class="panel panel-default">
-				<div class="panel-heading">Project Cost</div>
+			<div class="panel panel-primary box">
+				<div class="panel-heading box">Project Cost</div>
 				<div class="panel-body">
 					<div class="container-fluid">
 						<div class="row top30">
@@ -224,8 +224,8 @@
 	</div>
 
 	<div id="additionalInformation-div">
-		<div class="panel panel-default">
-			<div class="panel-heading">Additional Information</div>
+		<div class="panel panel-primary box">
+			<div class="panel-heading box">Additional Information</div>
 			<div class="panel-body">
 				<div class="container-fluid">
 					<div class="row">
@@ -262,14 +262,14 @@
 			    <li><a id="dropRejected"><span id="rejected" class="glyphicon glyphicon-ok" style="color: white;"></span>Rejected</a></li>
 			  </ul> -->
 					<button class="btn btn-default" data-toggle="dropdown"
-						style="width: 1.25in; text-align: left;" disabled="">
+						style="width: 1.25in; text-align: left;">
 						<span class="glyphicon glyphicon-check"></span>&nbsp;<span
 							id="lblFilter">&nbsp;</span>
 					</button>
 				</div>
-				<button id="projSaveBtn" type="button" class="btn btn-default">Save</button>
+				<button id="projSaveBtn" type="button" class="btn btn-success">Save</button>
 				<!-- <button id="projSubmitBtn" type="button" class="btn btn-default">Submit</button> -->
-				<button id="projCancelBtn" type="button" class="btn btn-default">Cancel</button>
+				<button id="projCancelBtn" type="button" class="btn btn-danger">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -284,6 +284,7 @@
 <jsp:include page="popup/projOSPopup.jsp"></jsp:include>
 <jsp:include page="popup/projMiddlewarePopup.jsp"></jsp:include>
 <jsp:include page="popup/projAppPopup.jsp"></jsp:include>
+<jsp:include page="popup/upload.jsp"></jsp:include>
 
 <c:if test="${projNo != 0}">
 	<script>

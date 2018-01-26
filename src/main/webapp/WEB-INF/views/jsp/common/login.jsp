@@ -17,7 +17,7 @@
 					<input id="password" type="password" class="form-control" placeholder="Password">
 				</div>
 				<div id="login-fail" class="alert alert-danger top10 hide" role="alert" style="margin-bottom: 0px;">Invalid Username or Password.</div>
-				<button id="loginBtn" type="button" class="btn btn-default top10" style="float: right;">Login</button>
+				<button id="loginBtn" type="button" class="btn btn-primary col-xs-4 top10" style="float: right;">Login</button>
 			</div>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-<div class="panel panel-default dashboard-main" id="dashboard-main">
+<div class="panel panel-primary dashboard-main" id="dashboard-main">
   <div class="panel-heading">
     <h3 class="panel-title">Dashboard</h3>
   </div>
