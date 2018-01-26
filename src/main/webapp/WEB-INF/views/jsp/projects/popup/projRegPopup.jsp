@@ -1,15 +1,15 @@
 <div id="projRegPopupModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="projRegPopupModal" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header modal-header-primary">
         <button id="closePRP" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="gridSystemModalLabel">Region</h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-12">
-          	<table id="projRegPopupTb" class="table table-hover common-table table-sm table-striped table-bordered dt-responsive nowrap" style="width: 100%">
-				<thead>
+          	<table id="projRegPopupTb" class="table table-hover common-table table-sm table-striped dt-responsive nowrap" style="width: 100%">
+				<thead class="tblHead">
 					<tr>
 						<th>Region</th>
 						<th>Description</th>
@@ -20,8 +20,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="okPRPbtn" type="button" class="btn btn-default">Ok</button>
-        <button id="closePRP" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="okPRPbtn" type="button" class="btn btn-info">Ok</button>
+        <button id="closePRP" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

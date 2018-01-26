@@ -66,7 +66,6 @@ function initProjectList(){
 	});
 	$projectlistdt = $projectlist.DataTable();
 	$('#projectlist tbody').on('dblclick', 'tr', function(){
-		console.log("Clicked!!!!")
 		var rowData = $projectlistdt.row(this).data();
 		loadUpdateProj(rowData.projNo);
 	});
@@ -161,28 +160,6 @@ function initPeriodList(){
 	$periodlistdt = $periodlisttb.DataTable();
 }
 
-/*function initInfraList(){
-	$infralisttb = $('#infralisttb');
-	$infralisttb.dataTable({
-		data: infralist,
-		ordering: false,
-		scrollY: "55px",
-        scrollCollapse: true,
-        scrollX: true,
-		columns: [{
-			data: 'os'
-		}, {
-			data: 'middleware'
-		}, {
-			data: 'application'
-		}, {
-			data: 'cpuMemory'
-		}],
-	     dom: "<'row'<'col-xs-12'>><'row'<'col-xs-12'tr>><'row'<'col-xs-6'><'col-xs-6'>>"
-	});
-	$infralistdt = $infralisttb.DataTable();
-}*/
-
 function initInfraList(){
 	$infralisttb = $('#infralisttb');
 	$infralisttb.dataTable({
@@ -230,6 +207,7 @@ function projPopupActions(projNo){
 	
 	/*added by SHARIE MANIPON 11.22.2017*/
 	loadProjAdtlInfo('projinfo-div', projNo);
+	loadReqInfo('projadtlinfo-div');
 	$back.removeClass('hide');
 	
 	if(useraccess != "pm"){
@@ -240,7 +218,7 @@ function projPopupActions(projNo){
 	$('#seachProjManager').removeClass('hide');
 	$('#seachbusUnit').removeClass('hide');
 	$('#seachStatus').removeClass('hide');
-	
+	userPreviliges();
 	disableReqSave(false);
 	if(useraccess == "bu") {
 		disableInvolved(true);
@@ -251,7 +229,6 @@ function projPopupActions(projNo){
 	}
 	
 	$("#additionalInformation-div").remove();
-	userPreviliges();
 }
 
 var $projmanagerpopuptb;

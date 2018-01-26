@@ -179,15 +179,16 @@ function loadAddProj(){
 function loadUpdateProj(projNo){
 	loadProjInfo(null, projNo, 'updateProj');
 	loadProjAdtlInfo('projinfo-div', projNo);
-	if(useraccess == 'po' || useraccess == 'bu'){
+	if(useraccess == 'bu'){
 		makeFieldsUneditable();
+		$('#projInfra').remove();
+		$('#projcost-col').removeClass("col-xs-6");
+		$('#projcost-col').addClass("col-xs-12");
+		$('#projCostStatus').remove();
 		//$('#grpbtnApproval').removeClass('hide');
-		$('#projSaveBtn').addClass('hide');
+		//$('#projSaveBtn').addClass('hide');
 	}
-	
 	$back.removeClass('hide');
-	//projadtlinfo-div disabled
-	userPreviliges();
 }
 
 function initAddProjInfo(){
@@ -231,10 +232,10 @@ function loadProjAdtlInfo(afterDiv, projNo){
 	}
 	
 	//removed by Ronnie
-/*	$('#uploadBtn').click(function(){
+	$('#uploadBtn').click(function(){
 		getProjAttachmentList(projNo);
-		$('#uploadModal').modal('show');
-	});*/
+		//$('#uploadModal').modal('show');
+	});
 	
 }
 
@@ -275,7 +276,7 @@ function initProjBtn(){
 function insertProj(){
 	try {
 		$('#createdBy').val($('#username-header').html());
-		var projInfo = prepareProjInfo();
+		var projInfo = prepareProjInfo('insert');
 		var projPeriod = prepareProjPeriod();
 		var projInfra = prepareProjInfra();
 		var projCost = prepareProjCost();
@@ -296,7 +297,7 @@ function insertProj(){
 		});
 		setTimeout(function(){
 			insertProjRequest();
-		}, 3000);
+		}, 2000);
 		
 	} catch (e) {
 		alert( 'insertProj - ' + e);
@@ -305,7 +306,7 @@ function insertProj(){
 
 function updateProj(){
 	try {
-		var projInfo = prepareProjInfo();
+		var projInfo = prepareProjInfo('update');
 		var projPeriod = prepareProjPeriod();
 		var projInfra = prepareProjInfra();
 		var projCost = prepareProjCost();
@@ -338,7 +339,7 @@ function updateProj(){
 	}
 }
 
-function prepareProjInfo(approved){
+function prepareProjInfo(action){
 	var projInfo = {};
 	if(nvl($('#projNo').val(), '') != ''){
 		projInfo.projNo = $('#projNo').val();
@@ -353,12 +354,13 @@ function prepareProjInfo(approved){
 	projInfo.remarks = $('#projRemarks').val();
 	projInfo.submitted = projSubmitted; //	Rochelle
 	
-	/*if(nvl(approved, '') != ''){
-		projInfo.approved = approved;
-	} else {
-		projInfo.approved = 0;
-	}*/
-	projInfo.approved = projApproved;
+	if(nvl(action, '') != ''){
+		if (action == 'insert') {
+			projInfo.approved = 0;
+		} else {
+			projInfo.approved = projApproved;
+		}
+	} 
 	if ( $('#projInfoHealth').hasClass('health-g') ){
 		projInfo.health = 'Completed';
 	}else if ( $('#projInfoHealth').hasClass('health-r') ){
@@ -384,6 +386,14 @@ function prepareApprvReqProjInfo(){
 	projInfo.projManager = $('#projManager').val();
 	projInfo.status = $('#projStatus').val();
 	projInfo.remarks = $('#projRemarks').val();
+	
+	if ( $('#projInfoHealth').hasClass('health-g') ){
+		projInfo.health = 'Completed';
+	}else if ( $('#projInfoHealth').hasClass('health-r') ){
+		projInfo.health = 'Failed';
+	}else if ( $('#projInfoHealth').hasClass('health-y') ){
+		projInfo.health = 'On-going';
+	}
 	
 	return projInfo;
 }
@@ -505,14 +515,12 @@ function approveProject(){
 		$.ajax({
 			url : contextPath + "/project/approve",
 			method : "POST",
-			data : prepareApprvReqProjInfo(),
-			//data : projInfo,
+			//data : prepareApprvReqProjInfo(),
+			data : projInfo,
 			success : function(result) {
 				if(result == 'success'){
-					createVM();
-					//createTestJob();
 					disableProjSave(true);
-					//loadProjStatusMain('projadtlinfo-div', projInfo.projNo);
+					createVM();
 				}
 			},
 		});
@@ -540,12 +548,13 @@ function createTestJob() {
 
 function disableProjSave(disable){
 	var $objSave = $('#projSaveBtn');
-//	var $objSubmit = $('#projSubmitBtn');
+	var $objSubmit = $('#projSubmitBtn');
 	//if(disable && !$objSave.prop('disabled') && !$objSubmit.prop('disabled')){
 	if(disable && !$objSave.prop('disabled')){
 		$objSave.prop('disabled', disable);
 		//$objSubmit.prop('disabled', disable);
-	}else if(!disable && $objSave.prop('disabled') && $objSubmit.prop('disabled')){
+	} else if(!disable && $objSave.prop('disabled')){
+	/*else if(!disable && $objSave.prop('disabled') && $objSubmit.prop('disabled')){*/
 		$objSave.prop('disabled', disable);
 		//$objSubmit.prop('disabled', disable);
 	}
@@ -764,35 +773,65 @@ function updateProjHist(psNoDone, psNoStart, psNoStartLastTag){
 }
 
 function makeFieldsUneditable() {
+	//project info fields
 	$('#projName').prop('readonly', true);
 	$('#bussinessUnit').removeClass('common-editable-fields');
-	$('#projDesc').prop('readonly', true);
+	$('#bussinessUnit').prop('readonly', true);
+	$('#projDesc').attr('readonly', true);
 	$('#projManager').removeClass('common-editable-fields');
+	$('#projManager').attr('readonly', true);
 	$('#projStatus').removeClass('common-editable-fields');
+	$('#projStatus').attr('readonly', true);
+	//
 	
 	if (projApproved == 1) {
 		$('#projPSD').prop('readonly', true);
 		$('#projPFD').prop('readonly', true);
 		$('#projASD').prop('readonly', true);
 		$('#projACD').prop('readonly', true);
+		$('#seachProjRegion').prop('disabled', true);
 		$('#projRegion').removeClass('common-editable-fields');
-		$('#projPhase').prop('disabled', true);
+		$('#projPhase').attr('disabled', 'disabled');
+		$('#projTotBudget').prop('readonly', true);
+		$('#reqDesc').prop('readonly', true);
+		$("#projadtlinfo-div span").prop('disabled', true);
+		$("#reqinfo-div span").prop('disabled', true);
+		// project infrastructure fields
+		$('#projOS').removeClass('common-editable-fields');
+		$('#projMW').removeClass('common-editable-fields');
+		$('#projApp').removeClass('common-editable-fields');
+		$('#projOS').prop('readonly', true);
+		$('#projMW').prop('readonly', true);
+		$('#projApp').prop('readonly', true);
+		$('#projCPU').prop('disabled', true);
+		$('#projMemory').prop('disabled', true);
 	} else {
+		if (useraccess == "bu") {
+			$("#projadtlinfo-div span").prop('disabled', true);
+			$("#reqinfo-div span").prop('disabled', true);
+			// project infrastructure fields
+			$('#projOS').removeClass('common-editable-fields');
+			$('#projMW').removeClass('common-editable-fields');
+			$('#projApp').removeClass('common-editable-fields');
+			$('#projOS').prop('readonly', true);
+			$('#projMW').prop('readonly', true);
+			$('#projApp').prop('readonly', true);
+			$('#projCPU').prop('disabled', true);
+			$('#projMemory').prop('disabled', true);
+			//
+		}
+		
 		$('#projPSD').prop('readonly', false);
 		$('#projPFD').prop('readonly', false);
 		$('#projASD').prop('readonly', false);
 		$('#projACD').prop('readonly', false);
 		$('#projRegion').addClass('common-editable-fields');
-		$('#projPhase').prop('disabled', false);
+		$('#projPhase').attr('disabled', false);
+		$('#projTotBudget').prop('readonly', false);
+		$('#reqDesc').prop('readonly', false);
 	}
 	
-	$('#projOS').removeClass('common-editable-fields');
-	$('#projMW').removeClass('common-editable-fields');
-	$('#projApp').removeClass('common-editable-fields');
-	$('#projCPU').prop('disabled', true);
-	$('#projMemory').prop('disabled', true);
-	
-	//$('#projTotBudget').prop('readonly', true);
+	// project cost fields
 	$('#projBudToDate').prop('readonly', true);
 	$('#projActToDate').prop('readonly', true);
 	$('#projCostDtls').prop('disable', true);

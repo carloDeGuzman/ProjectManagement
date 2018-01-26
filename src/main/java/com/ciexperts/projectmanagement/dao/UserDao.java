@@ -31,7 +31,6 @@ public class UserDao {
 		return user;
 	}
 
-	@SuppressWarnings("unchecked")
 	public UserRole getUserRole(Integer roleId){
 		
 		session = HibernateUtil.getSessionFactory().openSession();

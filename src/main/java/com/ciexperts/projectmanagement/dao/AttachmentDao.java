@@ -2,17 +2,12 @@ package com.ciexperts.projectmanagement.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-
 import com.ciexperts.projectmanagement.entity.ProjectAttachment;
-import com.ciexperts.projectmanagement.entity.Request;
 import com.ciexperts.projectmanagement.entity.RequestAttachment;
-import com.ciexperts.projectmanagement.entity.RequestHistory;
 import com.ciexperts.projectmanagement.tools.HibernateUtil;
 
 public class AttachmentDao {

@@ -41,7 +41,6 @@ public class JenkinsController {
 	}*/
 	
 	/*added by SHARIE MANIPON 12.12.17*/
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/jenkins/update/reqstatus", method = RequestMethod.POST)
 	@ResponseBody
 	public String triggerTest(@RequestBody ReqStatusParam params){
