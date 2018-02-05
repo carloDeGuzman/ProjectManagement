@@ -40,8 +40,8 @@ function initDeploymentList(){
 	         searchPlaceholder: "Search"
 	     },
 	     buttons: [
-              //	EDIT: RJVILLARUZ
-             {
+             /* 	EDIT: RJVILLARUZ
+              * {
                  text: 'Request Project',
                  action: function ( e, dt, node, config ) {
                 	 loadAddProj();
@@ -49,9 +49,9 @@ function initDeploymentList(){
                  enabled: useraccess == 'pm'
              }
              
-             
+             */
          ],
-	     dom: "<'row'<'col-xs-3'f><'col-xs-6'><'col-xs-3'B>><'row'<'col-xs-12'tr>><'row'<'col-xs-6'><'col-xs-6'p>>"
+         dom: "<'row'<'col-xs-1'f><'col-xs-6'><'col-xs-3'B>><'row'<'col-xs-12'tr>><'row'<'col-xs-6'><'col-xs-6'p>>"
 	});
 	$deploymentlistdt = $deploymentlist.DataTable();
 	$('#deploymentlist tbody').on('dblclick', 'tr', function(){
