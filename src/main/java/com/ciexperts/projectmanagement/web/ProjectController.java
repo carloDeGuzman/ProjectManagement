@@ -2,7 +2,11 @@ package com.ciexperts.projectmanagement.web;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.ciexperts.projectmanagement.entity.AppUser;
 import com.ciexperts.projectmanagement.entity.Project;
 import com.ciexperts.projectmanagement.entity.ProjectCost;
 import com.ciexperts.projectmanagement.entity.ProjectHistory;
@@ -27,16 +33,22 @@ public class ProjectController {
 
 	private ProjectService projectService = new ProjectService();
 	private Gson gson = new Gson();
-	
+	AppUser appUser = new AppUser();
 	@Autowired
 	AttachmentService attachmentService = new AttachmentService();
 	
 	@RequestMapping(value = "/project/page", method = RequestMethod.GET)
-	public ModelAndView projectListPage(){
+	public ModelAndView projectListPage(HttpSession session, HttpServletRequest request){
 		ModelAndView model = new ModelAndView("projects/projectlist");
 		// model.addObject("projectList", gson.toJson(ResponseFormatter.escapeHTMLInList(projectService.getProjList("list"))));
 		//	EDIT: RJVILLARUZ
-		model.addObject("projectList", gson.toJson(ResponseFormatter.escapeHTMLInList(projectService.getApprvProjList())));
+		String dashboard = request.getParameter("dashboard");
+		if(dashboard.equals("deployments")){
+		    model = new ModelAndView("deployments/deploymentlist");
+			model.addObject("deploymentList", gson.toJson(ResponseFormatter.escapeHTMLInList(projectService.getListDeployment())));
+		}else{
+			model.addObject("projectList", gson.toJson(ResponseFormatter.escapeHTMLInList(projectService.getApprvProjList())));
+		}
 		return model;
 	}
 	

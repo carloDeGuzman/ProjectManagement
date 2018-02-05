@@ -2,6 +2,7 @@ package com.ciexperts.projectmanagement.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -48,6 +49,28 @@ public class ProjectDao {
 			tx = session.beginTransaction();
 			projects = session.createCriteria(Project.class).add(Restrictions.eq("approved", 1)).list();
 			System.out.println(">>>>>>DAO Approved");
+			tx.commit();
+		}catch (HibernateException e){
+			if(tx != null) tx.rollback();
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		return projects;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Project> listDeployment(){
+		session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		List<Project> projects = null;
+		try{
+			tx = session.beginTransaction();
+			Criteria cr = session.createCriteria(Project.class);
+			cr.add(Restrictions.eq("approved", 1)).list();
+			cr.add(Restrictions.eq("status", "For Deployment")).list();
+			projects = cr.list();
+			System.out.println(">>>>>>DAO For Deployment");
 			tx.commit();
 		}catch (HibernateException e){
 			if(tx != null) tx.rollback();

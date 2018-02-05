@@ -55,6 +55,24 @@ public class ProjectService {
 		return projList;
 	}
 	
+	public List<HashMap<String, Object>> getListDeployment(){
+		List<HashMap<String, Object>> projList = new ArrayList<HashMap<String, Object>>();
+		List<Project> projects = projectDao.listDeployment();
+		for (Project project : projects) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("projNo", String.format("%06d", project.getProjNo()));
+			map.put("name", project.getName());
+			//if("list".equalsIgnoreCase(screen)){
+				map.put("businessUnit", project.getBusinesUnit());
+				map.put("desc", project.getDesc());
+				map.put("status", project.getStatus());
+				map.put("health", project.getHealth());
+			//}
+			projList.add(map);
+		}
+		return projList;
+	}
+	
 	public Project getProjInfoByNo(Integer projNo){
 		Project project = projectDao.getProjInfoByNo(projNo);
 		return project;
